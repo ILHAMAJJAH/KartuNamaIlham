@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Name Card Ilham</title>
+    <!-- Add FontAwesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .card-container {
+        perspective: 1000px;
+        width: 450px;
+        height: 250px;
+        position: relative;
+        z-index: 1000; /* Add this to bring card to front */
+      }
+
+      .business-card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        transform: rotateY(0deg);
+        opacity: 1;
+      }
+
+      .business-card.flipped {
+        transform: rotateY(180deg) !important;
+      }
+
+      .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        padding: 24px;
+        background: linear-gradient(
+          135deg,
+          #2a2a2a 0%,
+          #353535 100%
+        ); /* More matte color */
+        border: 1px solid #404040; /* Lighter border */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+          0 0 0 1px rgba(255, 255, 255, 0.03);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        background: linear-gradient(
+          135deg,
+          #353535 0%,
+          #2a2a2a 100%
+        ); /* More matte color */
+      }
+
+      /* Front Card Design */
+      .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        margin-bottom: 12px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 15px;
+      }
+
+      .name {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+      }
+
+      .title {
+        color: #a0a0a0;
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 20px;
+      }
+
+      .company {
+        color: #667eea;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .flip-hint {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        color: #666;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        opacity: 0.7;
+      }
+
+      .flip-icon {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #666;
+        border-radius: 2px;
+        position: relative;
+        transform: rotate(45deg);
+      }
+
+      /* Back Card Design */
+      .contact-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:last-child {
+        border-bottom: none;
+      }
+
+      .contact-item:hover {
+        transform: translateX(4px);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .contact-icon {
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(
+          135deg,
+          #5a6ed1 0%,
+          #6a4494 100%
+        ); /* More matte gradient */
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        flex-shrink: 0;
+      }
+
+      .contact-text {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 400;
+      }
+
+      .contact-label {
+        color: #a0a0a0;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .social-link {
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a0a0a0;
+        text-decoration: none;
+        font-size: 16px; /* Slightly larger for FontAwesome icons */
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .social-link:hover {
+        background: linear-gradient(
+          135deg,
+          #5a6ed1 0%,
+          #6a4494 100%
+        ); /* More matte gradient */
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+      }
+
+      .back-hint {
+        text-align: center;
+        color: #666;
+        font-size: 10px;
+        margin-top: 8px;
+      }
+
+      /* Bubble Animation */
+      .bubble {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03); /* More subtle bubbles */
+        animation: float 8s infinite;
+        pointer-events: none;
+        z-index: 1; /* Keep bubbles behind card */
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(90vh) scale(0);
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-10vh) scale(2);
+          opacity: 0;
+        }
+      }
+
+      /* Hover Effects */
+      .card-container:hover .business-card:not(.flipped) {
+        transform: rotateY(0deg) translateY(-4px);
+      }
+
+      .card-container:hover .business-card.flipped {
+        transform: rotateY(180deg) translateY(-4px);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 480px) {
+        .card-container {
+          width: 100%;
+          max-width: 340px;
+          height: 200px;
+        }
+
+        .name {
+          font-size: 18px;
+        }
+
+        .title {
+          font-size: 14px;
+          margin-bottom: 15px;
+        }
+
+        .company {
+          font-size: 11px;
+        }
+
+        .logo {
+          width: 50px;
+          height: 50px;
+        }
+
+        .card-face {
+          padding: 16px;
+        }
+
+        .contact-text {
+          font-size: 13px;
+        }
+
+        .contact-label {
+          font-size: 9px;
+        }
+
+        .social-link {
+          width: 28px;
+          height: 28px;
+          font-size: 14px;
+        }
+
+        .contact-icon {
+          width: 18px;
+          height: 18px;
+          font-size: 9px;
+        }
+      }
+
+      @media (max-width: 375px) {
+        .card-container {
+          max-width: 300px;
+          height: 180px;
+        }
+
+        .name {
+          font-size: 16px;
+        }
+
+        .title {
+          font-size: 12px;
+          margin-bottom: 12px;
+        }
+
+        .logo {
+          width: 45px;
+          height: 45px;
+        }
+
+        .card-face {
+          padding: 14px;
+        }
+
+        .contact-text {
+          font-size: 12px;
+        }
+
+        .social-link {
+          width: 26px;
+          height: 26px;
+        }
+      }
+
+      @media (max-width: 350px) {
+        .card-container {
+          max-width: 280px;
+          height: 170px;
+        }
+
+        .name {
+          font-size: 15px;
+        }
+
+        .title {
+          font-size: 11px;
+          margin-bottom: 10px;
+        }
+
+        .company {
+          font-size: 10px;
+        }
+
+        .logo {
+          width: 40px;
+          height: 40px;
+          margin-bottom: 8px;
+        }
+
+        .card-face {
+          padding: 12px;
+        }
+
+        .contact-item {
+          gap: 8px;
+          padding: 6px 0;
+        }
+
+        .contact-text {
+          font-size: 11px;
+        }
+
+        .contact-icon {
+          width: 16px;
+          height: 16px;
+          font-size: 8px;
+        }
+
+        .social-link {
+          width: 24px;
+          height: 24px;
+          font-size: 12px;
+        }
+
+        .flip-hint {
+          font-size: 8px;
+        }
+
+        .back-hint {
+          font-size: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Add this before the card container
+      function createBubbles() {
+        const body = document.querySelector("body");
+        const bubbleCount = 15;
+
+        for (let i = 0; i < bubbleCount; i++) {
+          const bubble = document.createElement("div");
+          bubble.className = "bubble";
+
+          // Random size between 20px and 60px
+          const size = Math.random() * 40 + 20;
+          bubble.style.width = `${size}px`;
+          bubble.style.height = `${size}px`;
+
+          // Random position on x-axis
+          bubble.style.left = `${Math.random() * 100}%`;
+
+          // Random animation duration between 8s and 20s
+          bubble.style.animationDuration = `${Math.random() * 12 + 8}s`;
+
+          // Random animation delay
+          bubble.style.animationDelay = `${Math.random() * 5}s`;
+
+          body.appendChild(bubble);
+        }
+      }
+
+      // Call the function when page loads
+      window.addEventListener("load", createBubbles);
+    </script>
+
+    <div class="card-container">
+      <div class="business-card" id="businessCard">
+        <!-- Front Side -->
+        <div class="card-face card-front">
+          <div class="card-header">
+            <div class="logo">
+              <img src="Logo.png" alt="Logo NotaKu" />
+            </div>
+            <div class="name">Ilham Panji Wibowo</div>
+            <div class="title">Pencatatan Profesional</div>
+          </div>
+          <div class="card-footer">
+            <div class="company">NotaKu</div>
+          </div>
+          <div class="flip-hint">
+            <div class="flip-icon"></div>
+            <span>Klik untuk info</span>
+          </div>
+        </div>
+
+        <!-- Back Side -->
+        <div class="card-face card-back">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-text">ilhampanjiwibowo@notaku.com</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div>
+                <div class="contact-label">Telepon</div>
+                <div class="contact-text">+62 812-3456-7890</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">🌐</div>
+              <div>
+                <div class="contact-label">Sosial Media</div>
+                <div class="social-links">
+                  <a href="https://www.instagram.com/ilhamthecraft?igsh=bWM5Z2NmdzF6bHhk" class="social-link" title="Instagram"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                  <a href="https://www.tiktok.com/@ipw7117?_t=ZS-8zwRzyK1m3Z&_r=1" class="social-link" title="TikTok"
+                    ><i class="fab fa-tiktok"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="back-hint">Klik lagi untuk kembali</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Business Card Flip Functionality
+      const businessCard = document.getElementById("businessCard");
+      const cardContainer = document.querySelector(".card-container");
+      let isFlipped = false;
+
+      // Add click event listener to card container
+      cardContainer.addEventListener("click", function (e) {
+        // Don't flip if clicking on social media links
+        if (
+          e.target.classList.contains("social-link") ||
+          e.target.closest(".social-link")
+        ) {
+          return;
+        }
+
+        // Toggle flip state
+        isFlipped = !isFlipped;
+
+        console.log("Card clicked, isFlipped:", isFlipped); // Debug log
+
+        // Add or remove flipped class
+        if (isFlipped) {
+          businessCard.classList.add("flipped");
+          console.log("Added flipped class"); // Debug log
+        } else {
+          businessCard.classList.remove("flipped");
+          console.log("Removed flipped class"); // Debug log
+        }
+
+        // Add a subtle click effect
+        businessCard.style.transform = isFlipped
+          ? "rotateY(180deg) scale(0.98)"
+          : "rotateY(0deg) scale(0.98)";
+
+        setTimeout(() => {
+          businessCard.style.transform = isFlipped
+            ? "rotateY(180deg)"
+            : "rotateY(0deg)";
+        }, 150);
+      });
+
+      // Keyboard accessibility
+      cardContainer.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          cardContainer.click();
+        }
+      });
+
+      // Make card focusable for accessibility
+      cardContainer.setAttribute("tabindex", "0");
+      cardContainer.setAttribute("role", "button");
+      cardContainer.setAttribute(
+        "aria-label",
+        "Kartu nama digital - klik untuk melihat informasi kontak"
+      );
+
+      // Social media click handlers
+      document.querySelectorAll(".social-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent card flip when clicking social links
+
+          // Add click animation
+          this.style.transform = "translateY(-2px) scale(0.9)";
+          setTimeout(() => {
+            this.style.transform = "translateY(-2px) scale(1)";
+          }, 150);
+
+          // Here you can add actual social media links
+          console.log("Social media clicked:", this.getAttribute("title"));
+        });
+      });
+
+      // Add loading animation
+      window.addEventListener("load", function () {
+        businessCard.style.opacity = "1";
+        businessCard.style.transform = "rotateY(0deg)";
+      });
+
+      // Test flip function (you can call this from browser console)
+      window.testFlip = function () {
+        cardContainer.click();
+      };
+    </script>
+  </body>
+</html>
