@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Name Card Ilham</title>
+    <title>Name Card Anggita</title>
+    <!-- Add Favicon -->
+    <link rel="icon" type="image/png" href="Logo.png" />
     <!-- Add FontAwesome CSS -->
     <link
       rel="stylesheet"
@@ -18,7 +20,7 @@
 
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+        background: #1a1a1a;
         min-height: 100vh;
         height: 100vh;
         overflow: hidden;
@@ -29,11 +31,11 @@
       }
 
       .card-container {
-        perspective: 1000px;
+        perspective: 1200px;
         width: 450px;
         height: 250px;
         position: relative;
-        z-index: 1000; /* Add this to bring card to front */
+        z-index: 1000;
       }
 
       .business-card {
@@ -41,7 +43,7 @@
         width: 100%;
         height: 100%;
         transform-style: preserve-3d;
-        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
         cursor: pointer;
         transform: rotateY(0deg);
         opacity: 1;
@@ -56,20 +58,14 @@
         width: 100%;
         height: 100%;
         backface-visibility: hidden;
-        border-radius: 16px;
-        padding: 24px;
-        background: linear-gradient(
-          135deg,
-          #2a2a2a 0%,
-          #353535 100%
-        ); /* More matte color */
-        border: 1px solid #404040; /* Lighter border */
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
-          0 0 0 1px rgba(255, 255, 255, 0.03);
+        border-radius: 20px;
+        padding: 28px;
+        background: #2a2a2a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         display: grid;
-        grid-template-columns: 1fr 120px;
-        gap: 20px;
-        justify-content: space-between;
+        grid-template-columns: 1fr 180px;
+        gap: 24px;
       }
 
       .card-content {
@@ -81,37 +77,67 @@
       .profile-section {
         position: relative;
         height: 100%;
-        padding-left: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end; /* Move content to bottom */
+        margin: -28px -28px -28px 0;
+        overflow: hidden;
+        border-radius: 0 20px 20px 0;
+        background: #2a2a2a;
+      }
+
+      .profile-section::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(
+          to top,
+          #2a2a2a 0%,
+          rgba(42, 42, 42, 0) 100%
+        );
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .profile-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: linear-gradient(
+          to bottom,
+          #2a2a2a 0%,
+          rgba(42, 42, 42, 0) 100%
+        );
+        pointer-events: none;
+        z-index: 2;
       }
 
       .profile-image {
         width: 100%;
-        height: 85%; /* Increased from 70% */
-        border-radius: 12px;
-        overflow: hidden;
-        margin-top: 0; /* Removed top margin */
-        margin-bottom: 10px; /* Added bottom margin */
+        height: 100%;
+        position: relative;
       }
 
       .profile-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center 15%;
+        transform: scale(1.05);
+        opacity: 0.95;
+        filter: contrast(1.02);
       }
 
       .card-back {
         transform: rotateY(180deg);
-        background: linear-gradient(
-          135deg,
-          #353535 0%,
-          #2a2a2a 100%
-        ); /* More matte color */
+        background: #2a2a2a;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding: 28px;
       }
 
       /* Front Card Design */
@@ -137,32 +163,35 @@
 
       .name {
         color: #ffffff;
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 6px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 8px;
         letter-spacing: -0.02em;
       }
 
       .title {
-        color: #a0a0a0;
+        color: #94a3b8;
         font-size: 16px;
-        font-weight: 400;
-        margin-bottom: 20px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        letter-spacing: 0.02em;
       }
 
       .company {
-        color: #667eea;
-        font-size: 12px;
-        font-weight: 500;
+        color: #3b82f6;
+        text-shadow: none;
+        font-size: 13px;
+        font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
       }
 
       .flip-hint {
         position: absolute;
         bottom: 12px;
         right: 12px;
-        color: #666;
+        color: #94a3b8;
         font-size: 10px;
         display: flex;
         align-items: center;
@@ -173,7 +202,7 @@
       .flip-icon {
         width: 12px;
         height: 12px;
-        border: 1px solid #666;
+        border: 1px solid #94a3b8;
         border-radius: 2px;
         position: relative;
         transform: rotate(45deg);
@@ -190,8 +219,8 @@
       .contact-item {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 8px 0;
+        gap: 14px;
+        padding: 12px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
       }
@@ -202,41 +231,38 @@
 
       .contact-item:hover {
         transform: translateX(4px);
-        background: rgba(255, 255, 255, 0.02);
+        background: rgba(255, 255, 255, 0.05);
         border-radius: 8px;
         padding-left: 8px;
         padding-right: 8px;
       }
 
       .contact-icon {
-        width: 20px;
-        height: 20px;
-        background: linear-gradient(
-          135deg,
-          #5a6ed1 0%,
-          #6a4494 100%
-        ); /* More matte gradient */
-        border-radius: 6px;
+        width: 24px;
+        height: 24px;
+        background: #3b82f6;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 10px;
-        flex-shrink: 0;
+        font-size: 12px;
+        box-shadow: none;
       }
 
       .contact-text {
-        color: #ffffff;
+        color: #e2e8f0;
         font-size: 15px;
         font-weight: 400;
       }
 
       .contact-label {
-        color: #a0a0a0;
-        font-size: 10px;
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
       }
 
       .social-links {
@@ -246,41 +272,34 @@
       }
 
       .social-link {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #a0a0a0;
+        color: #94a3b8;
         text-decoration: none;
-        font-size: 16px; /* Slightly larger for FontAwesome icons */
-        transition: all 0.3s ease;
+        font-size: 16px;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .social-link:hover {
-        background: linear-gradient(
-          135deg,
-          #5a6ed1 0%,
-          #6a4494 100%
-        ); /* More matte gradient */
+        background: #3b82f6;
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        box-shadow: none;
       }
 
+      /* Fix for back hint visibility */
       .back-hint {
         text-align: center;
-        color: #666;
-        font-size: 10px;
-        margin: 0;
+        color: #94a3b8;
+        font-size: 11px;
+        margin-top: 20px;
         padding-top: 12px;
-        position: absolute;
-        bottom: 12px;
-        left: 0;
-        right: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       /* Bubble Animation */
@@ -310,28 +329,36 @@
 
       /* Hover Effects */
       .card-container:hover .business-card:not(.flipped) {
-        transform: rotateY(0deg) translateY(-4px);
+        transform: rotateY(0deg) translateY(-8px);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .card-container:hover .business-card.flipped {
-        transform: rotateY(180deg) translateY(-4px);
+        transform: rotateY(180deg) translateY(-8px) !important;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
-      /* Responsive Design */
-      @media (max-width: 480px) {
+      /* Update Responsive Design */
+      @media (max-width: 500px) {
         .card-container {
-          width: 100%;
-          max-width: 340px;
-          height: 200px;
+          width: 420px;
+          height: 230px;
+        }
+
+        .card-face {
+          padding: 20px;
+          grid-template-columns: 1fr 140px;
+          gap: 16px;
         }
 
         .name {
-          font-size: 18px;
+          font-size: 22px;
+          margin-bottom: 6px;
         }
 
         .title {
           font-size: 14px;
-          margin-bottom: 15px;
+          margin-bottom: 16px;
         }
 
         .company {
@@ -341,113 +368,30 @@
         .logo {
           width: 50px;
           height: 50px;
-        }
-
-        .card-face {
-          padding: 16px;
-          grid-template-columns: 1fr 100px;
-          gap: 15px;
-        }
-
-        .profile-section {
-          padding-left: 15px;
-        }
-
-        .contact-text {
-          font-size: 13px;
-        }
-
-        .contact-label {
-          font-size: 9px;
-        }
-
-        .social-link {
-          width: 28px;
-          height: 28px;
-          font-size: 14px;
-        }
-
-        .contact-icon {
-          width: 18px;
-          height: 18px;
-          font-size: 9px;
-        }
-
-        .back-hint {
-          bottom: 10px;
-          font-size: 9px;
-        }
-      }
-
-      @media (max-width: 375px) {
-        .card-container {
-          max-width: 300px;
-          height: 180px;
-        }
-
-        .name {
-          font-size: 16px;
-        }
-
-        .title {
-          font-size: 12px;
-          margin-bottom: 12px;
-        }
-
-        .logo {
-          width: 45px;
-          height: 45px;
-        }
-
-        .card-face {
-          padding: 14px;
-          grid-template-columns: 1fr 80px;
-          gap: 10px;
-        }
-
-        .profile-section {
-          padding-left: 10px;
-        }
-
-        .contact-info {
-          gap: 12px; /* Reduced gap for better spacing */
-        }
-
-        .contact-item {
-          padding: 6px 0; /* Equal padding */
-        }
-
-        .social-links {
-          gap: 8px;
-          margin-top: 4px;
-          justify-content: flex-start; /* Align to left */
-        }
-
-        .social-link {
-          width: 28px;
-          height: 28px;
-          font-size: 14px;
-        }
-
-        .back-hint {
-          bottom: 8px;
-          font-size: 8px;
-        }
-      }
-
-      @media (max-width: 350px) {
-        .card-container {
-          max-width: 280px;
-          height: 170px;
-        }
-
-        .name {
-          font-size: 15px;
-        }
-
-        .title {
-          font-size: 11px;
           margin-bottom: 10px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .card-container {
+          width: 360px;
+          height: 210px;
+        }
+
+        .card-face {
+          padding: 18px;
+          grid-template-columns: 1fr 120px;
+          gap: 14px;
+        }
+
+        .name {
+          font-size: 20px;
+          margin-bottom: 5px;
+        }
+
+        .title {
+          font-size: 13px;
+          margin-bottom: 14px;
         }
 
         .company {
@@ -455,47 +399,256 @@
         }
 
         .logo {
+          width: 45px;
+          height: 45px;
+          margin-bottom: 8px;
+        }
+      }
+
+      @media (max-width: 375px) {
+        .card-container {
+          width: 320px;
+          height: 190px;
+        }
+
+        .card-face {
+          padding: 16px;
+          grid-template-columns: 1fr 100px;
+          gap: 12px;
+        }
+
+        .name {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+
+        .title {
+          font-size: 12px;
+          margin-bottom: 12px;
+        }
+
+        .company {
+          font-size: 9px;
+        }
+
+        .logo {
           width: 40px;
           height: 40px;
-          margin-bottom: 8px;
+          margin-bottom: 7px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card-container {
+          width: 400px;
+          height: 220px;
+        }
+
+        .card-face {
+          padding: 20px;
+          grid-template-columns: 1fr 130px;
+          gap: 15px;
+        }
+
+        .profile-section {
+          margin: -20px -20px -20px 0;
+          border-radius: 0 20px 20px 0;
+          overflow: hidden;
+        }
+
+        .profile-image {
+          height: 100%;
+        }
+
+        .profile-image img {
+          object-position: center 10%;
+          transform: scale(1.02);
+        }
+      }
+
+      @media (max-width: 350px) {
+        .card-container {
+          width: 280px;
+          height: 160px;
         }
 
         .card-face {
           padding: 12px;
-          grid-template-columns: 1fr 70px;
+          grid-template-columns: 1fr 80px;
           gap: 8px;
         }
 
         .profile-section {
-          padding-left: 8px;
+          margin: -12px -12px -12px 0;
         }
 
+        .profile-image {
+          height: 100%;
+        }
+
+        .profile-image img {
+          object-position: center;
+          transform: scale(1);
+        }
+
+        .name {
+          font-size: 16px;
+          margin-bottom: 4px;
+        }
+
+        .title {
+          font-size: 11px;
+          margin-bottom: 8px;
+        }
+
+        .company {
+          font-size: 9px;
+        }
+
+        .logo {
+          width: 35px;
+          height: 35px;
+          margin-bottom: 6px;
+        }
+
+        /* Back side adjustments */
+        .contact-item {
+          padding: 6px 0;
+          gap: 8px;
+        }
+
+        .contact-icon {
+          width: 18px;
+          height: 18px;
+          font-size: 10px;
+        }
+
+        .contact-text {
+          font-size: 10px;
+        }
+
+        .contact-label {
+          font-size: 8px;
+          margin-bottom: 2px;
+        }
+
+        .social-links {
+          gap: 6px;
+        }
+
+        .social-link {
+          width: 24px;
+          height: 24px;
+          font-size: 11px;
+        }
+
+        .back-hint {
+          font-size: 8px;
+          margin-top: 10px;
+          padding-top: 6px;
+        }
+      }
+
+      /* Update Responsive Design - Back Card Social Media */
+      @media (max-width: 500px) {
+        .contact-info {
+          gap: 14px;
+        }
+
+        .contact-item {
+          padding: 10px 0;
+          gap: 12px;
+        }
+
+        .contact-text {
+          font-size: 13px;
+        }
+
+        .contact-label {
+          font-size: 10px;
+          margin-bottom: 3px;
+        }
+
+        .social-links {
+          gap: 8px;
+          margin-top: 6px;
+        }
+
+        .social-link {
+          width: 32px;
+          height: 32px;
+          font-size: 14px;
+        }
+
+        .back-hint {
+          margin-top: 16px;
+          padding-top: 10px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .contact-info {
+          gap: 12px;
+        }
+
+        .contact-item {
+          padding: 8px 0;
+          gap: 10px;
+        }
+
+        .contact-text {
+          font-size: 12px;
+        }
+
+        .contact-label {
+          font-size: 9px;
+        }
+
+        .social-links {
+          gap: 7px;
+        }
+
+        .social-link {
+          width: 30px;
+          height: 30px;
+          font-size: 13px;
+        }
+      }
+
+      @media (max-width: 375px) {
         .contact-info {
           gap: 10px;
         }
 
         .contact-item {
-          padding: 5px 0;
-          gap: 6px;
+          padding: 7px 0;
+          gap: 9px;
+        }
+
+        .contact-text {
+          font-size: 11px;
+        }
+
+        .contact-icon {
+          width: 20px;
+          height: 20px;
+          font-size: 11px;
         }
 
         .social-links {
           gap: 6px;
-          margin-top: 3px;
         }
 
         .social-link {
-          width: 26px;
-          height: 26px;
+          width: 28px;
+          height: 28px;
           font-size: 12px;
         }
 
-        .flip-hint {
-          font-size: 8px;
-        }
-
         .back-hint {
-          font-size: 8px;
+          font-size: 9px;
+          margin-top: 12px;
+          padding-top: 8px;
         }
       }
     </style>
@@ -548,14 +701,10 @@
             <div class="card-footer">
               <div class="company">CV.BATAVIA EXPORTINDO</div>
             </div>
-            <div class="flip-hint">
-              <div class="flip-icon"></div>
-              <span>Klik untuk info</span>
-            </div>
           </div>
           <div class="profile-section">
             <div class="profile-image">
-              <img src="Anggi.png" alt="Profile Picture" />
+              <img src="Anggita_Purie-remove.png" alt="Profile Picture" />
             </div>
           </div>
         </div>
@@ -567,7 +716,7 @@
               <div class="contact-icon">📧</div>
               <div>
                 <div class="contact-label">Email</div>
-                <div class="contact-text">ilhampanjiwibowo@notaku.com</div>
+                <div class="contact-text">anggitapuriedihati@notaku.com</div>
               </div>
             </div>
 
@@ -636,16 +785,18 @@
           console.log("Removed flipped class"); // Debug log
         }
 
-        // Add a subtle click effect
+        // Update the click effect animation
+        businessCard.style.transition =
+          "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
         businessCard.style.transform = isFlipped
           ? "rotateY(180deg) scale(0.98)"
           : "rotateY(0deg) scale(0.98)";
 
         setTimeout(() => {
           businessCard.style.transform = isFlipped
-            ? "rotateY(180deg)"
-            : "rotateY(0deg)";
-        }, 150);
+            ? "rotateY(180deg) scale(1)"
+            : "rotateY(0deg) scale(1)";
+        }, 200);
       });
 
       // Keyboard accessibility
